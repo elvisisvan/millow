@@ -1,9 +1,10 @@
 // We require the Hardhat Runtime Environment explicitly here. This is optional
 // but useful for running the script in a standalone fashion through `node <script>`.
-//
+
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
+
 const hre = require("hardhat");
 
 const tokens = (n) => {
@@ -20,7 +21,7 @@ async function main() {
   await realEstate.deployed()
 
   console.log(`Deployed Real Estate Contract at: ${realEstate.address}`)
-  console.log(`Minting 3 properties...\n`)
+  console.log(`Minting properties...\n`)
 
   for (let i = 0; i < 3; i++) {
     const transaction = await realEstate.connect(seller).mint(`https://ipfs.io/ipfs/QmQVcpsjrA6cr1iJjZAodYwmPekYgbnXGo4DFubJiLc2EB/${i + 1}.json`)
@@ -38,7 +39,7 @@ async function main() {
   await escrow.deployed()
 
   console.log(`Deployed Escrow Contract at: ${escrow.address}`)
-  console.log(`Listing 3 properties...\n`)
+  console.log(`Listing properties...\n`)
 
   for (let i = 0; i < 3; i++) {
     // Approve properties...
@@ -47,6 +48,7 @@ async function main() {
   }
 
   // Listing properties...
+  let transaction;
   transaction = await escrow.connect(seller).list(1, buyer.address, tokens(20), tokens(10))
   await transaction.wait()
 
@@ -56,7 +58,7 @@ async function main() {
   transaction = await escrow.connect(seller).list(3, buyer.address, tokens(10), tokens(5))
   await transaction.wait()
 
-  console.log(`Finished.`)
+  console.log(`Deployed Escrow Contract at: ${escrow.address}`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

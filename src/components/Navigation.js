@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { ethers } from 'ethers';
 import logo from '../assets/logo.svg';
 
